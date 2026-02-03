@@ -12,4 +12,4 @@ local old; old = hookmetamethod(game, "__namecall", function(self, ...)
 end)
 
 -- 3. Завантажуємо оригінальний Overhaul (ту саму "кашу")
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Vraigos/Elderwyrm-Hub-X/main/Scripts/Evade/Overhaul.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Tima1331/Evade-X/main/source.lua"))()
