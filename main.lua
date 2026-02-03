@@ -4,24 +4,25 @@
 getgenv().KeylessMode = true 
 _G.KeyEntered = true
 
+-- Захист від кіку
 local old; old = hookmetamethod(game, "__namecall", function(self, ...)
-    local method = getnamecallmethod()
-    if method == "Kick" or method == "kick" then return nil end
+    if getnamecallmethod() == "Kick" or getnamecallmethod() == "kick" then return nil end
     return old(self, ...)
 end)
 
--- Бронебійний завантажувач
+-- Безпечне завантаження
 local success, result = pcall(function()
-    return game:HttpGet("https://raw.githubusercontent.com/Tima1331/Evade-X/main/source.lua")
+    return game:HttpGet("https://raw.githubusercontent.com/Tima1331/Evade-X/main/source.lua?t="..tick())
 end)
 
-if success and result ~= "" then
-    local func, err = loadstring(result)
+if success and result and result ~= "" then
+    local func = loadstring(result)
     if func then
+        print("Elderwyrm завантажено успішно!")
         func()
     else
-        warn("Помилка в коді source.lua: " .. tostring(err))
+        warn("Помилка в самому коді source.lua")
     end
 else
-    warn("Не вдалося скачати source.lua з GitHub!")
+    warn("GitHub не віддав код. Спробуй ще раз через секунду.")
 end
